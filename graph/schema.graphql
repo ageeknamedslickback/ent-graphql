@@ -1,0 +1,35 @@
+scalar Time
+
+enum Status {
+  IN_PROGRESS
+  COMPLETED
+}
+
+# Define an object type and map it later to the generated Ent model.
+type Todo {
+  id: ID!
+  createdAt: Time
+  status: Status!
+  priority: Int!
+  text: String!
+  parent: Todo
+  children: [Todo!]
+}
+
+# Define an input type for the mutation below.
+input TodoInput {
+  status: Status! = IN_PROGRESS
+  priority: Int
+  text: String!
+  parent: Int
+}
+
+# Define a mutation for creating todos.
+type Mutation {
+  createTodo(todo: TodoInput!): Todo!
+}
+
+# Define a query for getting all todos.
+type Query {
+  todos: [Todo!]
+}
